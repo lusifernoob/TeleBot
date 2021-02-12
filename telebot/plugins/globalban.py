@@ -1,3 +1,19 @@
+#    TeleBot - UserBot
+#    Copyright (C) 2020 TeleBot
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 # Imported by @its_xditya
 
 from telethon.events import ChatAction
@@ -5,7 +21,7 @@ from telethon.tl.functions.contacts import BlockRequest, UnblockRequest
 from telethon.tl.types import MessageEntityMentionName
 
 from telebot import CMD_HELP, bot
-from telebot.utils import admin_cmd, sudo_cmd
+from telebot.utils import admin_cmd
 
 client = bot
 
@@ -81,7 +97,6 @@ async def handler(tele):
 
 
 @telebot.on(admin_cmd(pattern="gban(?: |$)(.*)"))
-@telebot.on(sudo_cmd(pattern="gban(?: |$)(.*)", allow_sudo=True))
 async def gspider(rk):
     lazy = rk
     sender = await lazy.get_sender()
@@ -146,7 +161,6 @@ async def gspider(rk):
 
 
 @telebot.on(admin_cmd(pattern="ungban(?: |$)(.*)"))
-@telebot.on(sudo_cmd(pattern="ungban(?: |$)(.*)", allow_sudo=True))
 async def gspider(rk):
     lazy = rk
     sender = await lazy.get_sender()

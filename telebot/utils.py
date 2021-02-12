@@ -10,8 +10,8 @@ import re
 import logging
 import inspect
 
-handler = Config.CMD_HNDLR if Config.CMD_HNDLR else r"\."
-sudo_hndlr = Config.SUDO_HNDLR if Config.SUDO_HNDLR else "!"
+handler = Var.CMD_HNDLR if Var.CMD_HNDLR else r"\."
+sudo_hndlr = Var.SUDO_HNDLR if Var.SUDO_HNDLR else "!"
 
 
 def command(**args):
@@ -416,3 +416,33 @@ def start_mybot(shortname):
         spec.loader.exec_module(mod)
         sys.modules["telebot.plugins.mybot" + shortname] = mod
         print("TGBot Has imported " + shortname)
+
+
+def load_pmbot(shortname):
+    if shortname.startswith("__"):
+        pass
+    elif shortname.endswith("_"):
+        import importlib
+        import sys
+        from pathlib import Path
+
+        path = Path(f"telebot/plugins/mybot/pmbot/{shortname}.py")
+        name = "telebot.plugins.mybot.pmbot.{}".format(shortname)
+        spec = importlib.util.spec_from_file_location(name, path)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        print("Initialising PMBot.")
+        print("PMBot - Imported " + shortname)
+    else:
+        import importlib
+        import sys
+        from pathlib import Path
+
+        path = Path(f"telebot/plugins/mybot/pmbot/{shortname}.py")
+        name = "telebot.plugins.mybot.pmbot.{}".format(shortname)
+        spec = importlib.util.spec_from_file_location(name, path)
+        mod = importlib.util.module_from_spec(spec)
+        mod.tgbot = bot.tgbot
+        spec.loader.exec_module(mod)
+        sys.modules["telebot.plugins.mybot.pmbot." + shortname] = mod
+        print("PMBot Has imported " + shortname)

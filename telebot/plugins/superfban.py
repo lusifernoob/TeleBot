@@ -41,31 +41,25 @@ async def _(event):
                     fedList.append(line[:36])
                 except BaseException:
                     pass
-            arg = event.pattern_match.group(1)
-            args = arg.split()
-            if len(args) > 1:
-                FBAN = args[0]
-                REASON = ""
-                for a in args[1:]:
-                    REASON += a + " "
+            arg = event.text.split(" ", maxsplit=2)
+            if len(arg) > 2:
+                FBAN = arg[1]
+                REASON = arg[2]
             else:
-                FBAN = arg
+                FBAN = arg[1]
                 REASON = " #TBMassBanned "
         else:
             FBAN = previous_message.sender_id
-            REASON = event.pattern_match.group(1)
+            REASON = event.text.split(" ", maxsplit=1)[1]
             if REASON.strip() == "":
                 REASON = " #TBMassBanned "
     else:
-        arg = event.pattern_match.group(1)
-        args = arg.split()
-        if len(args) > 1:
-            FBAN = args[0]
-            REASON = ""
-            for a in args[1:]:
-                REASON += a + " "
+        arg = event.text.split(" ", maxsplit=2)
+        if len(arg) > 2:
+            FBAN = arg[1]
+            REASON = arg[2]
         else:
-            FBAN = arg
+            FBAN = arg[1]
             REASON = " #TBMassBanned "
     try:
         int(FBAN)
@@ -184,7 +178,7 @@ async def _(event):
             await bot_conv.send_message("/myfeds")
             response = await bot_conv.get_response()
             if "make a file" in response.text:
-                await asyncio.sleep(1)
+                await asyncio.sleep(3)
                 await response.click(0)
                 fedfile = await bot_conv.get_response()
                 if fedfile.media:
@@ -226,12 +220,12 @@ async def _(event):
     except BaseException:
         await event.edit("FBAN_GROUP_ID is incorrect.")
         return
-    await asyncio.sleep(3)
+    await asyncio.sleep(5)
     for fed in fedList:
         await telebot.send_message(chat, f"/joinfed {fed}")
-        await asyncio.sleep(3)
+        await asyncio.sleep(5)
         await telebot.send_message(chat, f"/unfban {FBAN}")
-        await asyncio.sleep(3)
+        await asyncio.sleep(5)
     await event.edit(f"SuperUnFBan Completed. Affected {len(fedList)} feds.\n#TB")
 
 
@@ -242,7 +236,7 @@ CMD_HELP.update(
         "superban": ".superfban <username/userid> <reason>\
         \n**Usage**: Mass-Ban in all feds you are admin in.\
         \nSet `EXCLUDE_FED fedid1|fedid2` in heroku vars to exclude those feds.\
-        \nSet var `FBAN_GROUP_ID` ti the group with rose, where you want FBan to take place.\
+        \nSet var `FBAN_GROUP_ID` to the group with rose, where you want FBan to take place.\
         \n\nGet help - @TeleBotSupport."
     }
 )

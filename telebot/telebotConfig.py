@@ -53,7 +53,15 @@ class Var(object):
     SUPPORT_USERS = set(
         int(x) for x in os.environ.get(
             "SUPPORT_USERS", "").split())
+    # custom vars
+    ALIVE_PIC = os.environ.get("ALIVE_PIC", None)
+    CUSTOM_ALIVE = os.environ.get("CUSTOM_ALIVE", None)
+    CUSTOM_ALIVE_EMOJI = os.environ.get("CUSTOM_ALIVE_EMOJI", None)
+    CUSTOM_AFK = os.environ.get("CUSTOM_AFK", None)
+    CUSTOM_STICKER_PACK_NAME = os.environ.get("CUSTOM_STICKER_PACK_NAME", None)
+    BOT_PIC = os.environ.get("BOT_PIC", None)
     LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
+    PMBOT_START_MSSG = os.environ.get("PMBOT_START_MSSG", None)
     LESS_SPAMMY = os.environ.get("LESS_SPAMMY", None)
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
@@ -67,6 +75,8 @@ class Var(object):
     GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", "root")
     AUTH_TOKEN_DATA = os.environ.get("AUTH_TOKEN_DATA", None)
     PMSECURITY = os.environ.get("PMSECURITY", "ON")
+    CMD_HNDLR = os.environ.get("CMD_HNDLR", r"\.")
+    SUDO_HNDLR = os.environ.get("SUDO_HNDLR", r"\!")
     # for autopic
     AUTOPIC_TEXT = os.environ.get(
         "AUTOPIC_TEXT",
@@ -78,6 +88,7 @@ class Var(object):
         t_file = open(TEMP_DOWNLOAD_DIRECTORY + "auth_token.txt", "w")
         t_file.write(AUTH_TOKEN_DATA)
         t_file.close()
+    LOAD_MYBOT = os.environ.get("LOAD_MYBOT", "True")
     PRIVATE_GROUP_ID = os.environ.get("PRIVATE_GROUP_ID", None)
     if PRIVATE_GROUP_ID is not None:
         try:
@@ -102,9 +113,6 @@ if ENV:
         # http://api.screenshotlayer.com/api/capture
         SCREEN_SHOT_LAYER_ACCESS_KEY = os.environ.get(
             "SCREEN_SHOT_LAYER_ACCESS_KEY", None)
-        # Send .get_id in any group to fill this value.
-        PRIVATE_GROUP_BOT_API_ID = int(os.environ.get(
-            "PRIVATE_GROUP_BOT_API_ID", -100123456789))
         # Send .get_id in any channel to fill this value. ReQuired for
         # @Manuel15 inspiration to work!
         PRIVATE_CHANNEL_BOT_API_ID = int(os.environ.get(
@@ -223,6 +231,8 @@ if ENV:
         MAX_SPAM = int(os.environ.get("MAX_SPAM", 3))
         # Lydia API
         LYDIA_API = os.environ.get("LYDIA_API", None)
+        GITA_CLIENT_ID = os.environ.get("GITA_CLIENT_ID", None)
+        GITA_CLIENT_SECRET = os.environ.get("GITA_CLIENT_SECRET", None)
         FBAN_GROUP_ID = os.environ.get("FBAN_GROUP_ID", None)
         if FBAN_GROUP_ID:
             FBAN_GROUP_ID = int(FBAN_GROUP_ID)

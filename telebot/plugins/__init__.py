@@ -14,22 +14,14 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import html
-import time
-from datetime import datetime
+from telethon.tl.types import Channel
 
-from telethon.tl.functions.photos import GetUserPhotosRequest
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.tl.types import MessageEntityMentionName
-from telethon.utils import get_input_location
-
+from telebot import *
 from telebot import ALIVE_NAME, bot, telever
-from telebot.__init__ import StartTime
 from telebot.telebotConfig import Config, Var
-from telebot.utils import admin_cmd, sudo_cmd
 
 # stats
-if Config.PRIVATE_GROUP_BOT_API_ID:
+if Var.PRIVATE_GROUP_ID:
     log = "Enabled"
 else:
     log = "Disabled"
@@ -67,3 +59,16 @@ telestats = f"{tele}"
 
 TELE_NAME = bot.me.first_name
 OWNER_ID = bot.me.id
+
+# count total number of groups
+
+
+async def tele_grps(event):
+    a = []
+    async for dialog in event.client.iter_dialogs():
+        entity = dialog.entity
+        if isinstance(entity, Channel):
+            if entity.megagroup:
+                if entity.creator or entity.admin_rights:
+                    a.append(entity.id)
+    return len(a), a

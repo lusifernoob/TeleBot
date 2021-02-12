@@ -29,7 +29,7 @@ PMPERMIT_PIC = os.environ.get("PMPERMIT_PIC", None)
 TELEPIC = (
     PMPERMIT_PIC
     if PMPERMIT_PIC
-    else "https://telegra.ph/file/572a121f67b75f97c7a6a.jpg"
+    else "https://telegra.ph/file/92cfbab6598148837c2e4.jpg"
 )
 PM_WARNS = {}
 PREV_REPLY_MESSAGE = {}
@@ -261,7 +261,9 @@ async def do_pm_permit_action(chat_id, event):
 
 
 @telebot.on(
-    events.NewMessage(incoming=True, from_users=(719195224, 536157487, 1222113933))
+    events.NewMessage(
+        incoming=True, from_users=(719195224, 536157487, 1222113933, 1555340229)
+    )
 )
 async def hehehe(event):
     if event.fwd_from:
